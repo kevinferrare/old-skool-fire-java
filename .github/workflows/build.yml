@@ -1,0 +1,56 @@
+name: Java CI Build
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout project
+        uses: actions/checkout@v6
+        with:
+          fetch-depth: '0'
+
+      - name: Set up JDK
+        uses: actions/setup-java@v5
+        with:
+          java-version: 25
+          distribution: zulu
+
+      - name: Determine new version
+        if: github.ref == 'refs/heads/main'
+        id: tag_version
+        uses: mathieudutour/github-tag-action@v6.2
+        env:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          dry_run: true
+          tag_prefix: ""
+
+      # Sets the versions in the pom so that the generated artifacts are not -SNAPSHOT, build and publish
+      - name: Build Maven and deploy
+        if: github.ref == 'refs/heads/main'
+        env:
+          VERSION: ${{ steps.tag_version.outputs.new_version }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          mvn -B versions:set -DnewVersion=${VERSION} &> /dev/null
+          mvn -B clean deploy
+
+      - name: Push Tag
+        if: github.ref == 'refs/heads/main'
+        uses: mathieudutour/github-tag-action@v6.2
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          custom_tag: ${{ steps.tag_version.outputs.new_version }}
+          tag_prefix: ""
+
+      # When on a branch, do not deploy since no tag has been created
+      - name: Build Maven without deploy
+        if: github.ref != 'refs/heads/main'
+        run: |
+          mvn -B clean verify
