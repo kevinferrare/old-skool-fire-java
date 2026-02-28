@@ -3,8 +3,13 @@
 A Java-based demo featuring a classic fire effect and 3D wireframe shapes.
 Originally written as a standalone AWT application in 2011, recently revived and modernized.
 
-![Fire Cube](fire_cube.png) ![Purple Star](purple_star.png)
+## YouTube
+[![Old Skool Fire](purple_star.png)](https://youtu.be/kQdEABACKdA)
 
+## Screenshots
+![Fire Cube](fire_cube.png)
+
+![Mobius](mobius.png)
 ## Requirements
 
 - JDK 21 or higher
