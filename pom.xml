@@ -36,6 +36,7 @@
     </repository>
   </distributionManagement>
   <properties>
+    <junit.version>5.11.4</junit.version>
     <git.repository>kevinferrare/old-skool-fire-java</git.repository>
     <maven.compiler.release>21</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -57,12 +58,12 @@
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
-      <version>1.5.17</version>
+      <version>1.5.32</version>
     </dependency>
     <dependency>
       <groupId>com.google.guava</groupId>
       <artifactId>guava</artifactId>
-      <version>33.4.0-jre</version>
+      <version>33.5.0-jre</version>
     </dependency>
     <dependency>
       <groupId>de.javagl</groupId>
@@ -83,13 +84,13 @@
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
-      <version>5.11.4</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
-      <version>5.11.4</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -99,7 +100,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
-        <version>3.13.0</version>
+        <version>3.15.0</version>
         <configuration>
           <compilerArgs>
             <arg>--add-modules</arg>
@@ -117,7 +118,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-plugin</artifactId>
-        <version>3.5.2</version>
+        <version>3.5.5</version>
         <configuration>
           <argLine>--add-modules jdk.incubator.vector</argLine>
         </configuration>
@@ -137,7 +138,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
-        <version>3.5.0</version>
+        <version>3.6.3</version>
         <configuration>
           <executable>java</executable>
           <arguments>
